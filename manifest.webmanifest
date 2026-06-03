@@ -1,0 +1,17 @@
+{
+  "name": "Excel 按列拆分工具",
+  "short_name": "Excel 拆分",
+  "description": "浏览器本地按列值拆分 Excel，并批量导出 xlsx 文件。",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#f4f7fb",
+  "theme_color": "#185a9d",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
