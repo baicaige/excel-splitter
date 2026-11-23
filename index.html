@@ -45,33 +45,40 @@ body.suite { display:block; margin:0; padding:0; color:var(--ink); background:va
   .suite .suite-panel { padding:16px }
   .suite h1 { font-size:23px }
 }
+
+.suite .shell { display:block }
+.suite .workspace { display:grid; grid-template-columns:minmax(0, 1.45fr) minmax(0, 1fr); gap:16px; align-items:start; margin:0 0 16px }
+.suite .upload-panel,.suite .summary-panel,.suite .log-panel { min-width:0; padding:22px }
+.suite .drop-zone { min-height:112px; padding:14px; border:1px dashed #a9b5c4; color:var(--ink) }
+.suite .drop-zone:hover,.suite .drop-zone:focus-within { border-color:var(--accent); background:#edf5ff }
+.suite .upload-icon { width:auto; height:auto; padding:2px 8px; border-radius:6px; color:var(--accent); background:#e5effb; box-shadow:none }
+.suite .ghost-button,.suite .text-button { background:#edf5ff; color:var(--accent) }
+.suite .ghost-button:hover,.suite .text-button:hover { color:white }
+.suite .split-status { margin-top:14px; padding-top:12px; border-top:1px solid var(--line); font-size:14px }
+.suite .split-status p { margin:3px 0 0; color:#565961 }
+.suite .stats,.suite .group-list,.suite #logOutput { overflow-wrap:anywhere }
+.suite #logOutput { white-space:pre-wrap; background:var(--surface); color:var(--ink); border:1px solid var(--line); border-radius:8px }
+@media(max-width:760px) {
+  .suite .workspace { grid-template-columns:minmax(0,1fr) }
+  .suite .upload-panel,.suite .summary-panel,.suite .log-panel { padding:16px }
+}
+@media(max-width:420px) {
+  .suite .options-grid { grid-template-columns:minmax(0,1fr) }
+}
 </style>
 </head>
   <body class="suite"><header class="tool-nav"><nav aria-label="工具导航"><a class="brand" href="https://baicaige.github.io/format-tool/">白菜的小工具</a><div><a href="https://baicaige.github.io/format-tool/#openid">OpenID 拆分</a><a href="https://baicaige.github.io/excel-splitter/" aria-current="page">Excel 拆分</a><a href="https://baicaige.github.io/format-tool/zhengjianzhao.html">证件照排版</a><a href="https://baicaige.github.io/format-tool/mima.html">随机密码</a></div></nav></header>
     <main class="shell">
       
 
-      <section class="hero" aria-labelledby="page-title">
-        <div>
-          <p class="eyebrow">白菜工具箱 · 本地处理</p>
-          <h1 id="page-title">Excel 按 A 列拆分</h1>
-          <p class="subtitle">选择 `.xlsx`、`.xls` 或 `.csv` 文件，按指定列的值分组成多个 Excel，并命名为 `值_行数.xlsx`。</p>
-        </div>
-        <div class="hero-panel">
-          <span>不上传表格</span>
-          <strong id="statusTitle">等待选择文件</strong>
-          <p id="statusText">默认按 A 列拆分，首行作为标题行保留到每个子表。</p>
-          <a class="side-link" href="https://baicaige.github.io/format-tool/">返回工具箱</a>
-        </div>
-      </section>
-
-      <section class="workspace">
-        <div class="upload-panel">
+<section class="workspace">
+        <div class="upload-panel" aria-labelledby="page-title">
+          <h1 id="page-title">Excel 拆分</h1>
           <label class="drop-zone" id="dropZone">
             <input id="fileInput" type="file" accept=".xlsx,.xls,.csv" />
             <span class="upload-icon" aria-hidden="true">XLS</span>
             <strong>拖入 Excel 文件，或点击选择</strong>
-            <small id="fileHint">支持单工作表数据表；会读取第一个工作表。</small>
+            <small id="fileHint">支持 XLSX、XLS、CSV · 读取第一个工作表</small>
           </label>
 
           <div class="options-grid" aria-label="拆分设置">
@@ -97,11 +104,12 @@ body.suite { display:block; margin:0; padding:0; color:var(--ink); background:va
             <button class="primary-button" id="splitButton" type="button" disabled>生成拆分文件</button>
             <button class="ghost-button" id="resetButton" type="button">清空</button>
           </div>
+          <div class="split-status" role="status"><strong id="statusTitle">等待选择文件</strong><p id="statusText">文件在浏览器本地处理。</p></div>
         </div>
 
         <aside class="summary-panel" aria-labelledby="summary-title">
           <div class="panel-heading">
-            <p class="eyebrow">预览</p>
+
             <h2 id="summary-title">分组结果</h2>
           </div>
           <dl class="stats">
@@ -116,7 +124,7 @@ body.suite { display:block; margin:0; padding:0; color:var(--ink); background:va
       <section class="log-panel" aria-live="polite">
         <div class="panel-heading inline">
           <div>
-            <p class="eyebrow">处理记录</p>
+
             <h2>运行状态</h2>
           </div>
           <button class="text-button" id="copyLogButton" type="button">复制记录</button>
@@ -124,17 +132,6 @@ body.suite { display:block; margin:0; padding:0; color:var(--ink); background:va
         <pre id="logOutput">尚未开始。</pre>
       </section>
 
-      <section class="related-panel" aria-labelledby="related-title">
-        <div class="panel-heading">
-          <p class="eyebrow">相关工具</p>
-          <h2 id="related-title">白菜工具箱</h2>
-        </div>
-        <div class="related-grid">
-          <a href="https://baicaige.github.io/format-tool/">每行数据加逗号</a>
-          <a href="https://baicaige.github.io/format-tool/mima.html">随机密码工具</a>
-          <a href="https://baicaige.github.io/format-tool/zhengjianzhao.html">证件照排版工具</a>
-        </div>
-      </section>
     </main>
 
     <div class="toast" id="toast" role="status" aria-live="polite"></div>
